@@ -1,0 +1,64 @@
+states:
+- name: S1
+  type: Composite
+  minTimeLock: '1'
+  maxTimeLock: '3'
+  on entry: ''
+  on during: ''
+  on exit: ''
+  events:
+  - &id001
+    name: E1
+    guard: E11
+  - &id002
+    name: E1_2
+    guard: E11
+  - name: E1_3
+    guard: E12
+  - name: max_time
+    guard: S1_count > 3
+  transitions:
+  - event: E1_2
+    target: S2
+  - event: E1_3
+    target: S3
+  - event: max_time
+    target: time_out
+- name: S2
+  type: Composite
+  minTimeLock: '1'
+  maxTimeLock: '3'
+  on entry: ''
+  on during: ''
+  on exit: ''
+  events:
+  - *id001
+  - *id002
+  - name: E2_3
+    guard: E22
+  - name: max_time
+    guard: S2_count > 3
+  transitions:
+  - event: E2_3
+    target: S3
+  - event: max_time
+    target: time_out
+- name: S3
+  type: Normal
+  minTimeLock: '1'
+  maxTimeLock: '3'
+  on entry: ''
+  on during: ''
+  on exit: ''
+  events:
+  - *id001
+  - *id002
+  - name: E3
+    guard: after(2)
+  - name: max_time
+    guard: S3_count > 3
+  transitions:
+  - event: E3
+    target: S1
+  - event: max_time
+    target: time_out

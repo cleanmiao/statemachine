@@ -1,0 +1,16 @@
+statechart:
+  name: S2
+  preamble: ''
+  root state:
+    name: S2
+    initial: S21
+    states:
+    - name: S21
+      type: Normal
+      transitions:
+      - target: S2
+        event: E21
+      - target: S22
+        event: E21_22
+    - name: S22
+      type: Normal

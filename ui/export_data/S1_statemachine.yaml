@@ -1,0 +1,14 @@
+statechart:
+  name: S1
+  preamble: ''
+  root state:
+    name: S1
+    initial: S11
+    states:
+    - name: S11
+      type: Normal
+      transitions:
+      - target: S12
+        event: E11_12
+    - name: S12
+      type: Normal

@@ -1,0 +1,43 @@
+states:
+- name: S21
+  type: Normal
+  minTimeLock: '0'
+  maxTimeLock: '1'
+  on entry: S21_count = 0
+  on during: S21_count++
+  on exit: ''
+  events:
+  - name: E21
+    guard: S21_count == 1
+  - &id001
+    name: E21_22
+    guard: S21_count > 1
+  - name: max_time
+    guard: S21_count > 1
+  transitions:
+  - &id002
+    event: E21
+    target: S2
+  - event: E21_22
+    target: S22
+  - event: max_time
+    target: time_out
+- name: S22
+  type: Normal
+  minTimeLock: '0'
+  maxTimeLock: '1'
+  on entry: S22_count = 0
+  on during: S22_count++
+  on exit: ''
+  events:
+  - *id001
+  - name: E22
+    guard: S22_count == 1
+  - name: max_time
+    guard: S22_count > 1
+  transitions:
+  - *id002
+  - event: E22
+    target: S2
+  - event: max_time
+    target: time_out

@@ -1,0 +1,45 @@
+statechart:
+  name: SM
+  preamble: ''
+  root state:
+    name: SM
+    initial: S1
+    states:
+    - name: S1
+      type: Normal
+      transitions:
+      - target: S2
+        event: event1
+      - target: S4
+        event: event4
+    - name: S2
+      type: Normal
+      transitions:
+      - target: S3
+        event: event2
+    - name: S3
+      type: Normal
+      transitions:
+      - target: S1
+        event: event1
+      - target: S1
+        event: event3
+    - name: S4
+      type: Normal
+      transitions:
+      - target: S5
+        event: event5
+      - target: S7
+        event: event7
+    - name: S5
+      type: Normal
+    - name: S6
+      type: Normal
+      transitions:
+      - target: S7
+        event: event6
+    - name: S7
+      type: Normal
+      transitions:
+      - target: S6
+        event: event7

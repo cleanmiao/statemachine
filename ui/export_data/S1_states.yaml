@@ -1,0 +1,43 @@
+states:
+- name: S11
+  type: Normal
+  minTimeLock: '1'
+  maxTimeLock: '2'
+  on entry: ''
+  on during: ''
+  on exit: ''
+  events:
+  - &id001
+    name: E11
+    guard: S11_count == 1
+  - name: E11_12
+    guard: S11_count == 2
+  - name: max_time
+    guard: S11_count > 2
+  transitions:
+  - &id002
+    event: E11
+    target: S1
+  - event: E11_12
+    target: S12
+  - event: max_time
+    target: time_out
+- name: S12
+  type: Normal
+  minTimeLock: '0'
+  maxTimeLock: '1'
+  on entry: ''
+  on during: ''
+  on exit: ''
+  events:
+  - *id001
+  - name: E12
+    guard: S12_count == 1
+  - name: max_time
+    guard: S12_count > 1
+  transitions:
+  - *id002
+  - event: E12
+    target: S1
+  - event: max_time
+    target: time_out

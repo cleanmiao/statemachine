@@ -1,0 +1,26 @@
+statechart:
+  name: S0
+  preamble: ''
+  root state:
+    name: S0
+    initial: S1
+    states:
+    - name: S1
+      type: Composite
+      transitions:
+      - target: S2
+        event: E1
+      - target: S3
+        event: E1_3
+      - target: S2
+        event: E1_2
+    - name: S2
+      type: Composite
+      transitions:
+      - target: S3
+        event: E2_3
+    - name: S3
+      type: Normal
+      transitions:
+      - target: S1
+        event: E3
